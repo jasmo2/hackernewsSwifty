@@ -19,6 +19,9 @@ class NewsController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        print("ok")
+        
         valueToPass = "I am passed Value"
         
     }
@@ -38,7 +41,7 @@ class NewsController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("numberOfRowsInSection")
-        return 2
+        return 3
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -49,8 +52,6 @@ class NewsController: UITableViewController {
         cell.scoreLabel.text = "342"
         cell.titleLabel.text = "My title"
         cell.typeLabel.text = "type A"
-        
-        performSegueWithIdentifier("PostNews", sender: self)
         return cell
     }
  
@@ -59,13 +60,15 @@ class NewsController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        if (segue.identifier == "PostNews") {
-          let viewController = segue.destinationViewController as! PostController
-          viewController.passedValue = valueToPass
+        print("prepareForSegue")
+
+        if segue.identifier == "PostInfo" {
+            print("segue.identifier")
+            if let postController = segue.destinationViewController as? PostController {
+                print("postController")
+                postController.selectedPost = ["url": "https://news.ycombinator.com/"]
+            }
         }
-        
     }
     
 }
